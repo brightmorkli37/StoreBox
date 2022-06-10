@@ -44,3 +44,9 @@ def user_signup(request):
     template_name = 'accounts/register.html'
     context = {"form": form}
     return render(request, template_name, context)
+
+def pricing(request):
+
+    template_name = 'accounts/pricing.html'
+    context = {}
+    return render(request, template_name, context)
