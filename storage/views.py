@@ -1,3 +1,9 @@
+from multiprocessing import context
 from django.shortcuts import render
 
-# Create your views here.
+
+def dashboard(request):
+
+    template_name = 'storage/dashboard.html'
+    context = {}
+    return render(request, template_name, context)
