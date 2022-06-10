@@ -189,19 +189,19 @@
             <ul class="metismenu left-sidenav-menu">
                 
                 <li>
-                    <a href="#"><i class="ti-bar-chart"></i><span>Dashboard</span></a>
+                    <a href="{% url 'storage:dashboard' %}"><i class="ti-bar-chart"></i><span>Dashboard</span></a>
                 </li>
                 <li class="">
                     <a href="{% url 'storage:my_images' %}" class="active"><i class="ti-layers-alt active"></i><span class="active">Images</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="ti-layers-alt"></i><span>Audio</span></a>
+                    <a href="{% url 'storage:my_audios' %}"><i class="ti-layers-alt"></i><span>Audio Files</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="ti-layers-alt"></i><span>Videos</span></a>
+                    <a href="{% url 'storage:my_videos' %}"><i class="ti-layers-alt"></i><span>Videos</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="ti-layers-alt"></i><span>Files</span></a>
+                    <a href="{% url 'storage:my_files' %}"><i class="ti-layers-alt"></i><span>Files</span></a>
                 </li>
                 
             </ul>
