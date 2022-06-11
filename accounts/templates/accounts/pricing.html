@@ -80,6 +80,7 @@
     
     <!-- Custom styles for this template -->
     <link href="{% static 'accounts/pricing.css' %}" rel="stylesheet">
+    <script src="https://js.paystack.co/v1/inline.js"></script>
   </head>
   <body>
     
@@ -125,7 +126,7 @@
               <li>Email support</li>
               <li>Help center access</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Purchase</button>
+            <button onclick = "PayDuesWithPayStack(5)" type="button" class="w-100 btn btn-lg btn-outline-primary">Purchase</button>
           </div>
         </div>
       </div>
@@ -142,7 +143,7 @@
               <li>Priority email support</li>
               <li>Help center access</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-primary">Purchase</button>
+            <button onclick = "PayDuesWithPayStack(15)" type="button" class="w-100 btn btn-lg btn-primary">Purchase</button>
           </div>
         </div>
       </div>
@@ -159,7 +160,7 @@
               <li>Phone and email support</li>
               <li>Help center access</li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-primary">Purchase</button>
+            <button onclick = "PayDuesWithPayStack(29)" type="button" class="w-100 btn btn-lg btn-primary">Purchase</button>
           </div>
         </div>
       </div>
@@ -169,5 +170,34 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>  
-  </body>
+  
+<script>
+  function PayDuesWithPayStack(amount){
+      let currency = "GHS";
+      let plan = "";
+      let ref = 'GNAAP'+ Date.now().toString(7) + Math.random().toString(10).substr(2);
+      let obj = {
+          key: "{{paystack_public_key}}",
+          email: "{{request.user.email}}",
+          amount: amount *100,
+          ref : ref,
+          callback: function(response){
+              window.location.href = "{%url 'accounts:payment' ref=3478258273564275427346 amount=7658236582352384523573453 %}".replace('3478258273564275427346', ref).replace('7658236582352384523573453', amount);
+          }
+      }
+
+      if (Boolean(currency)){
+          obj.currency = currency.toUpperCase()
+      }
+      if (Boolean(plan)){
+          obj.plan  = plan;
+      }
+      var handler = PaystackPop.setup(obj);
+          handler.openIframe();
+
+  }
+
+</script>
+
+</body>
 </html>

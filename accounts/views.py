@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import NewUserForm
+from project_root.settings import *
+from .models import Dues
 
 
 def index(request):
@@ -48,5 +50,21 @@ def user_signup(request):
 def pricing(request):
 
     template_name = 'accounts/pricing.html'
-    context = {}
+    context = {
+        'paystack_public_key': PAYSTACK_PUBLIC_KEY,
+
+    }
     return render(request, template_name, context)
+
+def payment(request, ref, amount):
+    payment = ref
+
+
+    dues_payment = Dues.objects.create(
+        user = request.user,
+        amount = amount,
+        ref = ref,
+        email = request.user.email,
+        verified = True,
+    )
+    return redirect('storage:dashboard')

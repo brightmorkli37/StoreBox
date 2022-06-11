@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 install = "*"
 django = "==3.2.13"
+mysqlclient = "*"
+psycopg2 = "*"
 
 [dev-packages]
 

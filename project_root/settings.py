@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-(8n$3eb)tjvk++l9wcn&+)1ycpj$7n8_dw8(3udniyoh&@&s2v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost', '9620-154-160-16-172.eu.ngrok.io']
 
 
 # Application definition
@@ -78,12 +78,35 @@ WSGI_APPLICATION = 'project_root.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE'  : 'django.db.backends.postgresql', # <-- UPDATED line 
+        'NAME'    : 'storebox_db',                 # <-- UPDATED line 
+        'USER'    : 'brightmorkli',                     # <-- UPDATED line
+        'PASSWORD': 'password@123',              # <-- UPDATED line
+        'HOST'    : 'localhost',                # <-- UPDATED line
+        'PORT'    : '5432',
     }
 }
+
+# 'OPTIONS': {
+#    'init_command': 'SET default_storage_engine=INNODB',
+# }
+
+
+# my.cnf
+# [client]
+# database = NAME
+# user = USER
+# password = PASSWORD
+# default-character-set = utf8
 
 
 # Password validation
@@ -118,6 +141,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Test Keys
+PAYSTACK_SECRET_KEY = 'sk_test_bc12aba0ae7d7aa6a38b23e78e2b99ad39ff0f5a'
+PAYSTACK_PUBLIC_KEY = 'pk_test_ac7576de1eca2019e470566da3703bc8f9d48914'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
