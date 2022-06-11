@@ -21,26 +21,19 @@
                                 <div class="table-responsive">
                                     <table class="table mb-0">                                                        
                                         <tbody>
-                                            {% if request.user.dues.verified == True %}
+                                            {% if request.user.payment.verified == True %}
                                             <tr class="border-0">
                                                 {% comment %} <td class="border-0"><a href="{% url 'accounts:pricing' %}" class="btn btn-gradient-primary">Upload Image</a></td> {% endcomment %}
                                                 <tr class="border-0">
-                                                    <td class="border-0"><i class="mdi mdi-circle-outline mr-1 text-pink"></i>Your account is active</td>
-                                                    <td class="border-0"><a href="#" class="btn btn-gradient-primary" id="dynamic-alert">Upload Image</a></td>
+                                                    <td class="border-0"><i class="mdi mdi-circle-outline mr-1 text-success"></i>Your account is active</td>
+                                                    <td class="border-0 text-right"><button type="button" class="btn btn-gradient-primary" data-toggle="modal" data-target=".bd-example-modal-xl" >Upload Image</button></td>
                                                 </tr>
                                             </tr>
-                                            <div class="row">
-                                                <form action="" method="POST" enctype="multipart/form-data">
-                                                    {% csrf_token %}
-                                                        <label for="">Upload Image</label>
-                                                        {{form.image}}
-                                                    <input type="submit" value="Submit" class="btn btn-primary">
-                                                </form>
-                                            </div>
                                             {% else %}
                                             <tr class="border-0">
-                                                <td class="border-0"><i class="mdi mdi-circle-outline mr-1 text-pink"></i>Purchase a storage plan to continue...</td>
-                                                <td class="border-0"><a href="{% url 'accounts:pricing' %}" class="btn btn-gradient-primary" id="dynamic-alert">Purchase</a></td>
+                                                <td class="border-0"><i class="mdi mdi-circle-outline mr-1 text-pink"></i><span class="text-danger">Purchase a storage plan to activate your storage...</span></td>
+                                                <td class="border-0"><a href="{% url 'accounts:pricing' %}" class="btn btn-gradient-primary">Go to Pricing</a></td>
+                                                <td class="border-0"><button type="button" class="btn btn-gradient-primary" disabled>Upload Image</button></td>
                                             </tr>
                                             {% endif %}
 
@@ -56,24 +49,49 @@
                 </div>
                 <!-- end page title end breadcrumb -->
                 <div class="row">
+                    {% for img in my_images %}
                     <div class="col-lg-3">
                         <div class="card e-co-product ">
                             
                             <a href="">  
-                                <img src="{% static 'storebox/assets/images/products/img-5.png' %}" alt="" class="img-fluid">
-                            </a>   
-                            {% comment %} <div class="ribbon ribbon-pink">
-                                <span>50% OFF</span>
-                            </div>                                  {% endcomment %}
-                            <div class="row card-body product-info text-center d-grid gap-2 d-md-block">
-                                <button class="btn btn-gradient-primary btn-round px-3 btn-sm waves-effect waves-light">Download</button>
-                                <hr>
-                                <button class="btn btn-gradient-danger btn-round px-3 btn-sm waves-effect waves-light">Delete</button>
+                                <img src="{{ img.image.url }}" alt="" class="img-fluid" width=250 height=250>
+                            </a>                            
+                            <div class="card-body product-info text-center d-grid gap-2 d-md-block">
+                                <a href="{% url 'storage:get_image' img.id %}" class="btn btn-primary btn-sm py-0 rounded" download="image.jpg">Download</a>
+                                {% comment %} <hr> {% endcomment %}
+                                <a href="{% url 'storage:delete_image' img.id %}" class="btn btn-danger btn-sm py-0 rounded">Delete</a>
                                
                             </div><!--end card-body-->
                         </div><!--end card-->
                     </div><!--end col-->
+                    {% endfor %}
                 </div><!--end row-->
+
+
+                <!-- sample modal content -->
+                <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title mt-0" id="myModalLabel">Upload Image</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form" action="" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                        <div class="custom-file mb-3">
+                                            <input type="file" name="image" class="form-control" required>
+                                        </div>
+                                        <br> 
+                                        <div class="d-grid gap-2 col-6 mx-auto">
+                                            <input type="submit" value="Upload" class="btn btn-primary">                                                
+                                        </div>
+                                </form>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
 
             </div><!-- container -->
 
@@ -88,3 +106,6 @@
 {% endblock content %}
 
 
+<div class="row">
+   
+</div>

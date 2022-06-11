@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import NewUserForm
 from project_root.settings import *
-from .models import Dues
+from .models import Payment
 
 
 def index(request):
@@ -59,8 +59,7 @@ def pricing(request):
 def payment(request, ref, amount):
     payment = ref
 
-
-    dues_payment = Dues.objects.create(
+    dues_payment = Payment.objects.create(
         user = request.user,
         amount = amount,
         ref = ref,
@@ -68,3 +67,8 @@ def payment(request, ref, amount):
         verified = True,
     )
     return redirect('storage:dashboard')
+
+
+def user_logout(request):
+    logout(request)
+    return redirect(reverse('accounts:index'))

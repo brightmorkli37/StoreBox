@@ -9,8 +9,97 @@
     <div class="page-content">
         <div class="container-fluid">
             <div class="row">
-                <h3>User Documents</h3>
+                
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">        
+                            {% comment %} <p class="text-muted mb-4">A beautiful, responsive, customizable
+                                and accessible (WAI-ARIA) replacement for JavaScript's popup boxes. Zero
+                                dependencies.
+                            </p> {% endcomment %}
+                            <div class="table-responsive">
+                                <table class="table mb-0">                                                        
+                                    <tbody>
+                                        {% if request.user.payment.verified == True %}
+                                        <tr class="border-0">
+                                            {% comment %} <td class="border-0"><a href="{% url 'accounts:pricing' %}" class="btn btn-gradient-primary">Upload Image</a></td> {% endcomment %}
+                                            <tr class="border-0">
+                                                <td class="border-0"><i class="mdi mdi-circle-outline mr-1 text-success"></i>Your account is active</td>
+                                                <td class="border-0 text-right"><button type="button" class="btn btn-gradient-primary" data-toggle="modal" data-target=".bd-example-modal-xl" >Upload Document</button></td>
+                                            </tr>
+                                        </tr>
+                                        {% else %}
+                                        <tr class="border-0">
+                                            <td class="border-0"><i class="mdi mdi-circle-outline mr-1 text-pink"></i><span class="text-danger">Purchase a storage plan to activate your storage...</span></td>
+                                            <td class="border-0"><a href="{% url 'accounts:pricing' %}" class="btn btn-gradient-primary">Go to Pricing</a></td>
+                                            <td class="border-0"><button type="button" class="btn btn-gradient-primary" disabled>Upload Document</button></td>
+                                        </tr>
+                                        {% endif %}
+
+                                        
+                                    </tbody>
+                                </table>
+                            </div><!--table responsive-->
+                        </div><!--end card-body-->
+                    </div><!--end card-->
+                </div>
+
             </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="">                                    
+                        <div class="tab-content" id="files-tabContent">
+                            <div class="tab-pane fade show active" id="files-projects">
+                                <h4 class="header-title mt-0 mb-3">My Documents</h4>     
+                                {% for file in my_files %}                                    
+                                <div class="file-box-content">
+                                    <div class="file-box">
+                                        <a href="" class="download-icon-link">
+                                            <i class="dripicons-download file-download-icon"></i>
+                                        </a>
+                                        <div class="text-center">
+                                            <i class="far fa-file-alt text-primary"></i>
+                                            <object data="myfile.pdf" type="application/pdf" width="100%" height="100%">
+                                                <p>{{file.file.name}} <a href="{{file.file.url}}">View</a></p>
+                                            </object>
+                                            {% comment %} <small class="text-muted">06 March 2019 / 5MB</small> {% endcomment %}
+                                        </div>                                                        
+                                    </div>                                               
+                                </div>
+                                {% endfor %}
+                            </div><!--end tab-pane-->
+
+                        </div>  <!--end tab-content-->                                                                              
+                    </div><!--end card-body-->
+                </div>
+            </div>
+
+            <!-- sample modal content -->
+            <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title mt-0" id="myModalLabel">Upload Document</h5>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form" action="" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                    <div class="custom-file mb-3">
+                                        <input type="file" name="file" class="form-control" required>
+                                    </div>
+                                    <br> 
+                                    <div class="d-grid gap-2 col-6 mx-auto">
+                                        <input type="submit" value="Upload" class="btn btn-primary">                                                
+                                    </div>
+                            </form>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
         </div>
     </div>
 </div>
