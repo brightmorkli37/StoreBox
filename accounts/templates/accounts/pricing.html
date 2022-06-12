@@ -126,7 +126,11 @@
               <li>Email support</li>
               <li>Help center access</li>
             </ul>
+            {% if request.user.is_authenticated %}
             <button onclick = "PayDuesWithPayStack(5)" type="button" class="w-100 btn btn-lg btn-outline-primary">Purchase</button>
+            {% else %}
+            <a href="{% url 'accounts:register' %}" class="w-100 btn btn-lg btn-outline-primary">Purchase</a>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -143,7 +147,11 @@
               <li>Priority email support</li>
               <li>Help center access</li>
             </ul>
-            <button onclick = "PayDuesWithPayStack(15)" type="button" class="w-100 btn btn-lg btn-primary">Purchase</button>
+            {% if request.user.is_authenticated %}
+            <button onclick = "PayDuesWithPayStack(15)" type="button" class="w-100 btn btn-lg btn-outline-primary">Purchase</button>
+            {% else %}
+            <a href="{% url 'accounts:register' %}" class="w-100 btn btn-lg btn-primary">Purchase</a>
+            {% endif %}         
           </div>
         </div>
       </div>
@@ -160,7 +168,11 @@
               <li>Phone and email support</li>
               <li>Help center access</li>
             </ul>
-            <button onclick = "PayDuesWithPayStack(29)" type="button" class="w-100 btn btn-lg btn-primary">Purchase</button>
+            {% if request.user.is_authenticated %}
+            <button onclick = "PayDuesWithPayStack(29)" type="button" class="w-100 btn btn-lg btn-outline-primary">Purchase</button>
+            {% else %}
+            <a href="{% url 'accounts:register' %}" class="w-100 btn btn-lg btn-primary">Purchase</a>
+            {% endif %}          
           </div>
         </div>
       </div>

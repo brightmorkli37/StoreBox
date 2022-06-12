@@ -12,5 +12,7 @@ urlpatterns = [
 
     path('delete_image/<int:pk>/', views.delete_image, name='delete_image'),
     path('delete_video/<int:pk>/', views.delete_video, name='delete_video'),
+    path('delete_audio/<int:pk>/', views.delete_audio, name='delete_audio'),
+    path('delete_file/<int:pk>/', views.delete_file, name='delete_file'),
     path('get_image/<int:pk>/', views.get_image, name='get_image'),
 ]

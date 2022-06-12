@@ -58,16 +58,17 @@
                     </div>
 
                     <div class="dropdown d-inline-block float-right mt-n2">
-                        <a class="nav-link dropdown-toggle arrow-none" id="drop7" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle arrow-none col-lg-4" id="drop7" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <i class="fas fa-ellipsis-v font-18 text-muted"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop7" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(38px, 0px, 0px);">
-                            <a class="dropdown-item text-danger" href="#">Delete</a>
+                            <a class="dropdown-item text-danger" href="{% url 'storage:delete_audio' audio.id %}">Delete</a>
                         </div>
                     </div>
-                    <h4 class="header-title pb-1 mb-3 mt-0"><i class="fa-solid fa-circle-trash"></i></h4>
+                    <h4 class="header-title pb-1 mb-3 mt-0 col-lg-4">{{audio.audio.name|slice:"10:"}}</h4>
 
                 </div>
+                <br>
                 {% endfor %}
             </div>
 

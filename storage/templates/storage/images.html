@@ -57,7 +57,7 @@
                                 <img src="{{ img.image.url }}" alt="" class="img-fluid" width=250 height=250>
                             </a>                            
                             <div class="card-body product-info text-center d-grid gap-2 d-md-block">
-                                <a href="{% url 'storage:get_image' img.id %}" class="btn btn-primary btn-sm py-0 rounded" download="image.jpg">Download</a>
+                                <a href="{{img.image.url}}" class="btn btn-primary btn-sm py-0 rounded" download="image.jpg">Download</a>
                                 {% comment %} <hr> {% endcomment %}
                                 <a href="{% url 'storage:delete_image' img.id %}" class="btn btn-danger btn-sm py-0 rounded">Delete</a>
                                

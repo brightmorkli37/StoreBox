@@ -98,6 +98,8 @@
                 <div class="form-group">
                   <form method="POST">
                     {% csrf_token %}
+
+
                     <a href="{% url 'accounts:index' %}">
                       <img class="mb-4" src="{% static 'accounts/cloud.jpg' %}" alt="" width="72" height="57">
                     </a>

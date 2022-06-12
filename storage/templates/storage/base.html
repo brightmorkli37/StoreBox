@@ -88,24 +88,30 @@
         </div>
         <!-- Top Bar End -->
 
-        
+        <style>
+            .bkm {
+                background-color: cyan;
+                {% comment %} color: white; {% endcomment %}
+                border-radius: 5px;
+            }
+        </style>
         <!-- Left Sidenav -->
         <div class="left-sidenav">
             <ul class="metismenu left-sidenav-menu">
                 <li>
-                    <a class="nav-link active" href="{% url 'storage:dashboard' %}"><i class="ti-bar-chart"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
-                </li>
-                <li class="">
-                    <a href="{% url 'storage:my_images' %}" class="active"><i class="ti-layers-alt active"></i><span class="active">Images</span></a>
+                    <a class="nav-link {% if page == 'dash' %}bkm{% endif %}" href="{% url 'storage:dashboard' %}"><i class="ti-bar-chart"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
                 </li>
                 <li>
-                    <a href="{% url 'storage:my_audios' %}"><i class="ti-layers-alt"></i><span>Audio Files</span></a>
+                    <a class="nav-link {% if page == 'images' %}bkm{% endif %}" href="{% url 'storage:my_images' %}" class="active"><i class="ti-layers-alt active"></i><span class="active">Images</span></a>
                 </li>
                 <li>
-                    <a href="{% url 'storage:my_videos' %}"><i class="ti-layers-alt"></i><span>Videos</span></a>
+                    <a class="nav-link {% if page == 'audio' %}bkm{% endif %}" href="{% url 'storage:my_audios' %}"><i class="ti-layers-alt"></i><span>Audio Files</span></a>
                 </li>
                 <li>
-                    <a href="{% url 'storage:my_files' %}"><i class="ti-layers-alt"></i><span>Documents</span></a>
+                    <a class="nav-link {% if page == 'videos' %}bkm{% endif %}" href="{% url 'storage:my_videos' %}"><i class="ti-layers-alt"></i><span>Videos</span></a>
+                </li>
+                <li>
+                    <a class="nav-link {% if page == 'files' %}bkm{% endif %}" href="{% url 'storage:my_files' %}"><i class="ti-layers-alt"></i><span>Documents</span></a>
                 </li>
                 
             </ul>

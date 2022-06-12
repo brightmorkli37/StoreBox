@@ -45,28 +45,52 @@
                 </div>
 
             </div>
+                
+            {% comment %} <style>
+                .file-box-content {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                }
+                .block {
+                    width: 100px;
+                }
+            </style> {% endcomment %}
 
-            <div class="row">
+            <div class="row" >
                 <div class="col-lg-12">
                     <div class="">                                    
                         <div class="tab-content" id="files-tabContent">
                             <div class="tab-pane fade show active" id="files-projects">
                                 <h4 class="header-title mt-0 mb-3">My Documents</h4>     
                                 {% for file in my_files %}                                    
-                                <div class="file-box-content">
-                                    <div class="file-box">
-                                        <a href="" class="download-icon-link">
-                                            <i class="dripicons-download file-download-icon"></i>
-                                        </a>
-                                        <div class="text-center">
-                                            <i class="far fa-file-alt text-primary"></i>
-                                            <object data="myfile.pdf" type="application/pdf" width="100%" height="100%">
-                                                <p>{{file.file.name}} <a href="{{file.file.url}}">View</a></p>
-                                            </object>
-                                            {% comment %} <small class="text-muted">06 March 2019 / 5MB</small> {% endcomment %}
-                                        </div>                                                        
-                                    </div>                                               
+                                <div class="row" style="display: block;">
+                                    <div class="block">
+                                        <div class="file-box-content">
+                                            <div class="file-box">
+                                                <div class="dropdown d-inline-block float-right mt-n2">
+                                                    <a class="nav-link dropdown-toggle arrow-none" id="drop7" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v font-18 text-muted"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop7" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(38px, 0px, 0px);">
+                                                        <a class="dropdown-item text-danger" href="{% url 'storage:delete_file' file.id %}">Delete</a>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="text-center">
+                                                    <i class="far fa-file-alt text-primary"></i>
+                                                    <object data="myfile.pdf" type="application/pdf" width="100%" height="100%">
+                                                        <p>{{file.file.name|slice:"13:"}}
+                                                            <br>
+                                                            <a href="{{file.file.url}}" class="btn btn-primary btn-outline btn-sm">View/Download</a>
+                                                        </p>
+                                                    </object>
+                                                </div>                                                        
+                                            </div>                                               
+                                        </div>
+                                    </div>
                                 </div>
+                                <br>
                                 {% endfor %}
                             </div><!--end tab-pane-->
 
