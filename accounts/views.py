@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import NewUserForm
+from project_root.settings import *
+from .models import Payment
 
 
 def index(request):
@@ -14,19 +16,18 @@ def index(request):
 
 def user_login(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
 
         if user is not None:
             login(request, user)
             return redirect('storage:dashboard')
-           
+            
         else:
-            return render(request, 'accounts/login.html', {'message': 'login failed, please try again'})
-    else:
-        return render(request, 'accounts/login.html')
+            messages.error(request, "Username Or Password is incorrect!")
 
+    return render(request, 'accounts/login.html')
 
 def user_signup(request):
     form = NewUserForm()
@@ -48,5 +49,25 @@ def user_signup(request):
 def pricing(request):
 
     template_name = 'accounts/pricing.html'
-    context = {}
+    context = {
+        'paystack_public_key': PAYSTACK_PUBLIC_KEY,
+
+    }
     return render(request, template_name, context)
+
+def payment(request, ref, amount):
+    payment = ref
+
+    dues_payment = Payment.objects.create(
+        user = request.user,
+        amount = amount,
+        ref = ref,
+        email = request.user.email,
+        verified = True,
+    )
+    return redirect('storage:dashboard')
+
+
+def user_logout(request):
+    logout(request)
+    return redirect(reverse('accounts:index'))

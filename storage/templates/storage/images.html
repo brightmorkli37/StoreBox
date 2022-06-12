@@ -2,53 +2,111 @@
 {% load static %}
 
 {% block content %}
+    <div class="page-wrapper">
 
+        <!-- Page Content-->
+        <div class="page-content">
 
+            <div class="container-fluid">
+                <!-- Page-Title -->
+                <div class="row">
 
-        <div class="page-wrapper">
-            <!-- Page Content-->
-            <div class="page-content">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">        
+                                {% comment %} <p class="text-muted mb-4">A beautiful, responsive, customizable
+                                    and accessible (WAI-ARIA) replacement for JavaScript's popup boxes. Zero
+                                    dependencies.
+                                </p> {% endcomment %}
+                                <div class="table-responsive">
+                                    <table class="table mb-0">                                                        
+                                        <tbody>
+                                            {% if request.user.payment.verified == True %}
+                                            <tr class="border-0">
+                                                {% comment %} <td class="border-0"><a href="{% url 'accounts:pricing' %}" class="btn btn-gradient-primary">Upload Image</a></td> {% endcomment %}
+                                                <tr class="border-0">
+                                                    <td class="border-0"><i class="mdi mdi-circle-outline mr-1 text-success"></i>Your account is active</td>
+                                                    <td class="border-0 text-right"><button type="button" class="btn btn-gradient-primary" data-toggle="modal" data-target=".bd-example-modal-xl" >Upload Image</button></td>
+                                                </tr>
+                                            </tr>
+                                            {% else %}
+                                            <tr class="border-0">
+                                                <td class="border-0"><i class="mdi mdi-circle-outline mr-1 text-pink"></i><span class="text-danger">Purchase a storage plan to activate your storage...</span></td>
+                                                <td class="border-0"><a href="{% url 'accounts:pricing' %}" class="btn btn-gradient-primary">Go to Pricing</a></td>
+                                                <td class="border-0"><button type="button" class="btn btn-gradient-primary" disabled>Upload Image</button></td>
+                                            </tr>
+                                            {% endif %}
 
-                <div class="container-fluid">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div><!--table responsive-->
+                            </div><!--end card-body-->
+                        </div><!--end card-->
+                    </div>
+
                     
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">        
-                                    {% comment %} <p class="text-muted mb-4">A beautiful, responsive, customizable
-                                        and accessible (WAI-ARIA) replacement for JavaScript's popup boxes. Zero
-                                        dependencies.
-                                    </p> {% endcomment %}
-                                    <div class="table-responsive">
-                                        <table class="table mb-0">                                                        
-                                            <tbody>
-                                                <tr class="border-0">
-                                                    <td class="border-0 text-danger"><i class="mdi mdi-circle-outline mr-1 text-danger"></i class="text-danger">Purchase a storage plan to activate your storage</td>
-                                                    <td class="border-0"><a href="{% url 'accounts:pricing' %}" class="btn btn-gradient-primary">View Pricing</a></td>
-                                                </tr>
+                </div>
+                <!-- end page title end breadcrumb -->
+                <div class="row">
+                    {% for img in my_images %}
+                    <div class="col-lg-3">
+                        <div class="card e-co-product ">
+                            
+                            <a href="">  
+                                <img src="{{ img.image.url }}" alt="" class="img-fluid" width=250 height=250>
+                            </a>                            
+                            <div class="card-body product-info text-center d-grid gap-2 d-md-block">
+                                <a href="{{img.image.url}}" class="btn btn-primary btn-sm py-0 rounded" download="image.jpg">Download</a>
+                                {% comment %} <hr> {% endcomment %}
+                                <a href="{% url 'storage:delete_image' img.id %}" class="btn btn-danger btn-sm py-0 rounded">Delete</a>
+                               
+                            </div><!--end card-body-->
+                            
+                        </div><!--end card-->
+                    </div><!--end col-->
+                    {% endfor %}
+                </div><!--end row-->
 
-                                                <tr class="border-0">
-                                                    <td class="border-0 text-danger"><i class="mdi mdi-circle-outline mr-1 text-danger"></i class="text-danger">Purchase a storage plan to activate your storage</td>
-                                                    <td class="border-0"><a href="{% url 'accounts:pricing' %}" class="btn btn-gradient-primary">Upload Image</a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div><!--table responsive-->
-                                </div><!--end card-body-->
-                            </div><!--end card-->
-                        </div> <!-- end col -->
-                    </div> <!-- end row --> 
 
-                </div><!-- container -->
+                <!-- sample modal content -->
+                <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title mt-0" id="myModalLabel">Upload Image</h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form" action="" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                        <div class="custom-file mb-3">
+                                            <input type="file" name="image" class="form-control" required>
+                                        </div>
+                                        <br> 
+                                        <div class="d-grid gap-2 col-6 mx-auto">
+                                            <input type="submit" value="Upload" class="btn btn-primary">                                                
+                                        </div>
+                                </form>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
 
-                {% comment %} <footer class="footer text-center text-sm-left">
-                    &copy; 2020 Crovex <span class="text-muted d-none d-sm-inline-block float-right">Crafted with <i class="mdi mdi-heart text-danger"></i> by Mannatthemes</span>
-                </footer><!--end footer--> {% endcomment %}
-            </div>
-            <!-- end page content -->
+            </div><!-- container -->
+
+            {% comment %} <footer class="footer text-center text-sm-left">
+                &copy; 2020 Crovex <span class="text-muted d-none d-sm-inline-block float-right">Crafted with <i class="mdi mdi-heart text-danger"></i> by Mannatthemes</span>
+            </footer><!--end footer--> {% endcomment %}
+        </div>
+        <!-- end page content -->
     </div>
       
 
 {% endblock content %}
 
 
+<div class="row">
+   
+</div>

@@ -89,7 +89,7 @@
     
     <div class="container mt-5">
       <div class="row justify-content-center">
-        <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="col-lg-6 col-md-6 col-sm-4">
           <div class="card">
             <div class="card-body">
               <div class="card-title">
@@ -98,6 +98,19 @@
                 <div class="form-group">
                   <form method="POST">
                     {% csrf_token %}
+
+                    {% comment %} alerts {% endcomment %}
+                    {% if messages %}
+                      {% for message in messages %}
+                      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" aria-hidden="true"></button>
+                      </div>
+                      {% endfor %}
+                    {% endif %}
+                    {% comment %} alerts end ... {% endcomment %}
+
+
                     <a href="{% url 'accounts:index' %}">
                       <img class="mb-4" src="{% static 'accounts/cloud.jpg' %}" alt="" width="72" height="57">
                     </a>
@@ -141,3 +154,10 @@
     
   </body>
 </html>
+
+<script>
+    msg = document.getElementsByClassName('alert');
+    msg.onclick = function() {
+        msg.style.display = 'none';
+    };
+</script>

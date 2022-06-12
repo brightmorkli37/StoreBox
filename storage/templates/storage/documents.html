@@ -1,0 +1,131 @@
+{% extends 'storage/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="page-wrapper">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">        
+                            {% comment %} <p class="text-muted mb-4">A beautiful, responsive, customizable
+                                and accessible (WAI-ARIA) replacement for JavaScript's popup boxes. Zero
+                                dependencies.
+                            </p> {% endcomment %}
+                            <div class="table-responsive">
+                                <table class="table mb-0">                                                        
+                                    <tbody>
+                                        {% if request.user.payment.verified == True %}
+                                        <tr class="border-0">
+                                            {% comment %} <td class="border-0"><a href="{% url 'accounts:pricing' %}" class="btn btn-gradient-primary">Upload Image</a></td> {% endcomment %}
+                                            <tr class="border-0">
+                                                <td class="border-0"><i class="mdi mdi-circle-outline mr-1 text-success"></i>Your account is active</td>
+                                                <td class="border-0 text-right"><button type="button" class="btn btn-gradient-primary" data-toggle="modal" data-target=".bd-example-modal-xl" >Upload Document</button></td>
+                                            </tr>
+                                        </tr>
+                                        {% else %}
+                                        <tr class="border-0">
+                                            <td class="border-0"><i class="mdi mdi-circle-outline mr-1 text-pink"></i><span class="text-danger">Purchase a storage plan to activate your storage...</span></td>
+                                            <td class="border-0"><a href="{% url 'accounts:pricing' %}" class="btn btn-gradient-primary">Go to Pricing</a></td>
+                                            <td class="border-0"><button type="button" class="btn btn-gradient-primary" disabled>Upload Document</button></td>
+                                        </tr>
+                                        {% endif %}
+
+                                        
+                                    </tbody>
+                                </table>
+                            </div><!--table responsive-->
+                        </div><!--end card-body-->
+                    </div><!--end card-->
+                </div>
+
+            </div>
+                
+            {% comment %} <style>
+                .file-box-content {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                }
+                .block {
+                    width: 100px;
+                }
+            </style> {% endcomment %}
+
+            <div class="row" >
+                <div class="col-lg-12">
+                    <div class="">                                    
+                        <div class="tab-content" id="files-tabContent">
+                            <div class="tab-pane fade show active" id="files-projects">
+                                <h4 class="header-title mt-0 mb-3">My Documents</h4>     
+                                {% for file in my_files %}                                    
+                                <div class="row" style="display: block;">
+                                    <div class="block">
+                                        <div class="file-box-content">
+                                            <div class="file-box">
+                                                <div class="dropdown d-inline-block float-right mt-n2">
+                                                    <a class="nav-link dropdown-toggle arrow-none" id="drop7" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v font-18 text-muted"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop7" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(38px, 0px, 0px);">
+                                                        <a class="dropdown-item text-danger" href="{% url 'storage:delete_file' file.id %}">Delete</a>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="text-center">
+                                                    <i class="far fa-file-alt text-primary"></i>
+                                                    <object data="myfile.pdf" type="application/pdf" width="100%" height="100%">
+                                                        <p>{{file.file.name|slice:"13:"}}
+                                                            <br>
+                                                            <a href="{{file.file.url}}" class="btn btn-primary btn-outline btn-sm">View/Download</a>
+                                                        </p>
+                                                    </object>
+                                                </div>                                                        
+                                            </div>                                               
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                {% endfor %}
+                            </div><!--end tab-pane-->
+
+                        </div>  <!--end tab-content-->                                                                              
+                    </div><!--end card-body-->
+                </div>
+            </div>
+
+            <!-- sample modal content -->
+            <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title mt-0" id="myModalLabel">Upload Document</h5>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form" action="" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                    <div class="custom-file mb-3">
+                                        <input type="file" name="file" class="form-control" required>
+                                    </div>
+                                    <br> 
+                                    <div class="d-grid gap-2 col-6 mx-auto">
+                                        <input type="submit" value="Upload" class="btn btn-primary">                                                
+                                    </div>
+                            </form>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
