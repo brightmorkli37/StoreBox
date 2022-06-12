@@ -16,19 +16,18 @@ def index(request):
 
 def user_login(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
 
         if user is not None:
             login(request, user)
             return redirect('storage:dashboard')
-           
+            
         else:
-            return render(request, 'accounts/login.html', {'message': 'login failed, please try again'})
-    else:
-        return render(request, 'accounts/login.html')
+            messages.error(request, "Username Or Password is incorrect!")
 
+    return render(request, 'accounts/login.html')
 
 def user_signup(request):
     form = NewUserForm()
