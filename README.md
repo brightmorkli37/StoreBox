@@ -5,4 +5,4 @@ files.
 
 #### Clean, Simple and Flexible
 
-##### Demo Link: 
+##### Demo Link: https://storebox-project.herokuapp.com/
