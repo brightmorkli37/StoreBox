@@ -9,16 +9,16 @@ from .models import *
 @login_required(login_url='accounts:login')
 def dashboard(request):
     page = 'dash'
-    images = Image.objects.filter(user=request.user)
-    videos = Video.objects.filter(user=request.user)
-    audios = Audio.objects.filter(user=request.user)
-    files = Document.objects.filter(user=request.user)
+    images = len(list(Image.objects.filter(user=request.user)))
+    videos = len(list(Video.objects.filter(user=request.user)))
+    audios = len(list(Audio.objects.filter(user=request.user)))
+    files = len(list(Document.objects.filter(user=request.user)))
 
     template_name = 'storage/dashboard.html'
     context = {
-        'page': page, 'images': images.count(),
-        'videos': videos.count(), 'audios': audios.count(),
-        'files': files.count()
+        'page': page, 'images': images,
+        'videos': videos, 'audios': audios,
+        'files': files,
 
     }
     return render(request, template_name, context)
