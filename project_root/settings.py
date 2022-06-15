@@ -144,8 +144,8 @@ USE_L10N = True
 USE_TZ = True
 
 # Test Keys
-PAYSTACK_SECRET_KEY = 'sk_test_bc12aba0ae7d7aa6a38b23e78e2b99ad39ff0f5a'
-PAYSTACK_PUBLIC_KEY = 'pk_test_ac7576de1eca2019e470566da3703bc8f9d48914'
+PAYSTACK_SECRET_KEY = 'sk_test_7b8bc861229db65d7d15c3bcc491e61dc9db0ef9'
+PAYSTACK_PUBLIC_KEY = 'pk_test_3e7bafbfa47a045acc58b0b8694dc7e77c738a2b'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
